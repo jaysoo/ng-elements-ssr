@@ -11,7 +11,9 @@
     "dev:ssr": "ng run ng-elements-ssr:serve-ssr",
     "serve:ssr": "node dist/ng-elements-ssr/server/main.js",
     "build:ssr": "ng build --prod && ng run ng-elements-ssr:server:production",
-    "prerender": "ng run ng-elements-ssr:prerender"
+    "prerender": "ng run ng-elements-ssr:prerender",
+    "patch": "curl  https://unpkg.com/@angular/elements@10.2.4/fesm2015/elements.js -o node_modules/@angular/elements/__ivy_ngcc__/fesm2015/elements.js",
+    "unpatch": "curl  https://unpkg.com/@angular/elements@11.1.2/fesm2015/elements.js -o node_modules/@angular/elements/__ivy_ngcc__/fesm2015/elements.js"
   },
   "private": true,
   "dependencies": {
