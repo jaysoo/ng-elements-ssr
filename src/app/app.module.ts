@@ -1,16 +1,42 @@
-import { NgModule } from '@angular/core';
+import {
+  CUSTOM_ELEMENTS_SCHEMA,
+  Inject,
+  Injector,
+  NgModule,
+} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
+import { registerElement } from '../lib/register-element';
+import { ChildComponent } from './child.component';
+import { CUSTOM_ELEMENTS } from '../lib/custom-elements.token';
+
+export function getCustomElements() {
+  return customElements;
+}
 
 @NgModule({
-  declarations: [
-    AppComponent
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  declarations: [ChildComponent, AppComponent],
+  imports: [BrowserModule.withServerTransition({ appId: 'serverApp' })],
+  providers: [
+    {
+      provide: CUSTOM_ELEMENTS,
+      useFactory: getCustomElements
+    },
   ],
-  imports: [
-    BrowserModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {
+  constructor(
+    private injector: Injector,
+    @Inject(CUSTOM_ELEMENTS) customElementsRegistry: CustomElementRegistry
+  ) {
+    registerElement(
+      customElementsRegistry,
+      injector,
+      ChildComponent,
+      'child-element'
+    );
+  }
+}
