@@ -10,10 +10,14 @@ export const registerElement = (
   if (!customElementRegistry.get(selector)) {
     const customElement = createCustomElement(component, {
       injector,
-      strategyFactory: new ComponentNgElementStrategyFactory(
-        component,
-        injector
-      ),
+
+      /*
+       * Uncomment this code to "fix" the SSR issue.
+       */
+      // strategyFactory: new ComponentNgElementStrategyFactory(
+      //   component,
+      //   injector
+      // ),
     });
     customElementRegistry.define(selector, customElement);
   }
