@@ -7,9 +7,9 @@ import {
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { registerElement } from '../lib/register-element';
+import { registerElement } from '../lib/custom-elements/register-element';
 import { ChildComponent } from './child.component';
-import { CUSTOM_ELEMENTS } from '../lib/custom-elements.token';
+import { CUSTOM_ELEMENTS } from '../lib/custom-elements/custom-elements.token';
 
 export function getCustomElements() {
   return customElements;
@@ -22,7 +22,7 @@ export function getCustomElements() {
   providers: [
     {
       provide: CUSTOM_ELEMENTS,
-      useFactory: getCustomElements
+      useFactory: getCustomElements,
     },
   ],
   bootstrap: [AppComponent],
